@@ -1,4 +1,4 @@
-# Personal Base Container
+# Dynamic DNS
 
 Update DDNS at [Domain-DNS.com](https://domain-dns.com/)
 

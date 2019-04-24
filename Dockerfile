@@ -1,7 +1,8 @@
 FROM minchinweb/python:3.7
 
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+# base image should have turned off pip caching
+RUN pip install -r requirements.txt
 
 COPY ddns.py ./
 
