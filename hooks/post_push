@@ -1,0 +1,10 @@
+#!/bin/bash
+# hooks/build
+# https://docs.docker.com/docker-cloud/builds/advanced/
+
+# tags with DDNS version (someday...)
+
+echo "[***] Post_Push hook running"
+
+docker tag $IMAGE_NAME $DOCKER_REPO:$SOURCE_COMMIT
+docker push $DOCKER_REPO:$SOURCE_COMMIT

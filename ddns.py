@@ -22,7 +22,7 @@ import sys
 import requests
 
 DEFAULT_CACHE_FILE = ".public_ip.txt"
-_version = "0.1.0"
+__version__ = "0.1.0"
 
 
 logging.basicConfig(level=logging.INFO,
