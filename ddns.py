@@ -92,7 +92,7 @@ def update_public_ip(base_url=None, domain_name=None, key=None, ip=None):
 
 
 def main_loop(endless=False, cache_file=None, sleep_sec=5*60):
-    info("DDNS updater, version %s" % _version)
+    info("DDNS updater, version %s" % __version__)
     if cache_file is None:
         cache_file = getenv('DDNS_CACHE_FILE', DEFAULT_CACHE_FILE)
     cache_file = (Path.cwd() / cache_file).resolve()
