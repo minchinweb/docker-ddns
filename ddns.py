@@ -22,11 +22,13 @@ import sys
 import requests
 
 DEFAULT_CACHE_FILE = ".public_ip.txt"
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 
-logging.basicConfig(level=logging.INFO,
-                    format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
+)
 
 
 def read_public_ip(cache_file=None):
@@ -73,8 +75,10 @@ def update_public_ip(base_url=None, domain_name=None, key=None, ip=None):
         warning("No base url provided. Set 'DDNS_KEY' environmental variable")
         sys.exit(1)
 
-    payload = {'host': domain_name,
-               'key' : key }
+    payload = {
+        'host': domain_name,
+        'key' : key,
+    }
     # if IP isn't provided, the ip address this is called from will be used
     # automatically on the backend
     if ip is not None:
@@ -118,3 +122,4 @@ def main_loop(endless=False, cache_file=None, sleep_sec=5*60):
 
 if __name__ == "__main__":
     main_loop(endless=True)
+
