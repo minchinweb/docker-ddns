@@ -1,4 +1,4 @@
-FROM minchinweb/python:3.9
+FROM ghcr.io/minchinweb/python:3.9
 
 COPY requirements.txt ./
 # base image should have turned off pip caching

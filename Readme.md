@@ -2,10 +2,9 @@
 
 Update DDNS at [Domain-DNS.com](https://domain-dns.com/)
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/minchinweb/ddns.svg?style=popout)](https://hub.docker.com/r/minchinweb/ddns)
-[![Size & Layers](https://images.microbadger.com/badges/image/minchinweb/ddns.svg)](https://microbadger.com/images/minchinweb/ddns)
 [![GitHub issues](https://img.shields.io/github/issues-raw/minchinweb/docker-ddns.svg?style=popout)](https://github.com/MinchinWeb/docker-ddns/issues)
 <!--
+[![Docker Pulls](https://img.shields.io/docker/pulls/minchinweb/ddns.svg?style=popout)](https://hub.docker.com/r/minchinweb/ddns)
 ![MicroBadger Layers](https://img.shields.io/microbadger/layers/layers/minchinweb/ddns.svg?style=plastic)
 ![MicroBadger Size](https://img.shields.io/microbadger/image-size/image-size/minchinweb/ddns.svg?style=plastic)
 -->
@@ -18,11 +17,11 @@ This is only useful if you have your DNS at
 
 For the URL you want to update, there will be a "Remote IP Key" listed.
 
-Then, supply the needed environmental varaibles in your `docker-compose.yaml`
+Then, supply the needed environmental variables in your `docker-compose.yaml`
 file:
 
       ddns:
-        image: minchinweb/ddns
+        image: ghcr.io/minchinweb/ddns:1
         restart: unless-stopped
         environment:
           - PUID=${PUID}
