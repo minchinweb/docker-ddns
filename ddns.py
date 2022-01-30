@@ -22,7 +22,7 @@ import sys
 import requests
 
 DEFAULT_CACHE_FILE = ".public_ip.txt"
-__version__ = "0.1.1"
+__version__ = "1.0.0"
 
 
 logging.basicConfig(
@@ -122,4 +122,3 @@ def main_loop(endless=False, cache_file=None, sleep_sec=5*60):
 
 if __name__ == "__main__":
     main_loop(endless=True)
-
