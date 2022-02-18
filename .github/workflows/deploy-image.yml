@@ -9,6 +9,9 @@ on:
   push:
     branches: ['master']
   workflow_dispatch:
+  schedule:
+    # 6:05am Monday UTC; Sunday night local time
+    - cron: "5 6 * * 1"
 
 env:
   REGISTRY: ghcr.io

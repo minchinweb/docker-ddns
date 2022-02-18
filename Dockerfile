@@ -1,10 +1,10 @@
 FROM ghcr.io/minchinweb/python:3.9
 
+COPY ddns.py ./
+
 COPY requirements.txt ./
 # base image should have turned off pip caching
 RUN pip install -r requirements.txt
-
-COPY ddns.py ./
 
 # these are provided by the build hook when run on Docker Hub
 ARG BUILD_DATE="1970-01-01T00:00:00Z"
