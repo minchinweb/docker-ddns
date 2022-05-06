@@ -54,7 +54,7 @@ jobs:
           echo "DDNS_VERSION_X=${DDNS_VERSION_X}" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Log in to the (GitHub) Container registry
         uses: docker/login-action@42d299face0c5c43a0487c477f595ac9cf22f1a7
