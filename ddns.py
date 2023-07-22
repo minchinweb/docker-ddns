@@ -12,12 +12,12 @@ Updates DNS for domain-dns.com; no idea if it works for other DNS hosts.
 """
 
 import logging
-from logging import info, warning, debug, error
+from logging import debug, error, info, warning
 from os import getenv
 from pathlib import Path
-from time import sleep
 import random
 import sys
+from time import sleep
 
 import requests
 
