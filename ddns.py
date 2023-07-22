@@ -12,7 +12,7 @@ Updates DNS for domain-dns.com; no idea if it works for other DNS hosts.
 """
 
 import logging
-from logging import info, warning
+from logging import info, warning, debug, error
 from os import getenv
 from pathlib import Path
 from time import sleep
@@ -22,7 +22,8 @@ import sys
 import requests
 
 DEFAULT_CACHE_FILE = ".public_ip.txt"
-__version__ = "1.0.0"
+DEFAULT_DDNS_UPDATE_URL = "http://domain-dns.com/ip.cgi"
+__version__ = "1.1.0"
 
 
 logging.basicConfig(
@@ -66,13 +67,13 @@ def update_public_ip(base_url=None, domain_name=None, key=None, ip=None):
     if domain_name is None:
         domain_name = getenv('DDNS_DOMAIN_NAME')
     if domain_name is None:
-        warning("No base url provided. Set 'DDNS_DOMAIN_NAME' environmental variable")
+        warning("No domain name provided. Set 'DDNS_DOMAIN_NAME' environmental variable.")
         sys.exit(1)
 
     if key is None:
         key = getenv('DDNS_KEY')
     if key is None:
-        warning("No base url provided. Set 'DDNS_KEY' environmental variable")
+        warning("No API key provided. Set 'DDNS_KEY' environmental variable.")
         sys.exit(1)
 
     payload = {
@@ -94,9 +95,38 @@ def update_public_ip(base_url=None, domain_name=None, key=None, ip=None):
         warning("Return code %s" % r.status_code)
         return
 
+def check_config():
+    debug("Configuration is:")
+    cache_file = getenv('DDNS_CACHE_FILE')
+    if cache_file:
+        debug(f"DDNS_CACHE_FILE={cache_file}}")
+    else:
+        debug(f"DDNS_CACHE_FILE not set, using default: {DEFAULT_CACHE_FILE}")
+
+    update_url = getenv('DDNS_UPDATE_URL')
+    if update_url:
+        debug(f"DDNS_UPDATE_URL={update_url}")
+    else:
+        debug(f"DDNS_UPDATE_URL not set, using default: {DEFAULT_DDNS_UPDATE_URL}")
+
+    domain_name = getenv('DDNS_DOMAIN_NAME')
+    if domain_name:
+        debug(f"DDNS_DOMAIN_NAME={domain_name}")
+    else:
+        error("No domain name provided. Set 'DDNS_DOMAIN_NAME' environmental variable.")
+
+    api_key = getenv('DDNS_KEY')
+    if api_key:
+        debug(f"DDNS_KEY set!")
+    else:
+        error(No API key provided. Set 'DDNS_KEY' environmental variable.")
+
 
 def main_loop(endless=False, cache_file=None, sleep_sec=5*60):
     info("DDNS updater, version %s" % __version__)
+
+    check_config()
+
     if cache_file is None:
         cache_file = getenv('DDNS_CACHE_FILE', DEFAULT_CACHE_FILE)
     cache_file = (Path.cwd() / cache_file).resolve()
