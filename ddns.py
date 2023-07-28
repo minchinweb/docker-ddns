@@ -16,7 +16,6 @@ from logging import debug, error, info, warning
 from os import getenv
 from pathlib import Path
 import random
-import sys
 from time import sleep
 
 import requests
@@ -24,7 +23,7 @@ from urllib3.exceptions import NameResolutionError
 
 DEFAULT_CACHE_FILE = ".public_ip.txt"
 DEFAULT_DDNS_UPDATE_URL = "http://domain-dns.com/ip.cgi"
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 
 logging.basicConfig(
@@ -155,6 +154,9 @@ def main_loop(endless=False, cache_file=None, sleep_sec=5 * 60):
 
     if cache_file is None:
         cache_file = getenv("DDNS_CACHE_FILE", DEFAULT_CACHE_FILE)
+    # if DDNS_CACHE_FILE set to a blank string
+    if not cache_file:
+        cache_file = DEFAULT_CACHE_FILE
     cache_file = (Path.cwd() / cache_file).resolve()
     info("Using cache file: %s" % cache_file)
 
@@ -182,7 +184,7 @@ def main_loop(endless=False, cache_file=None, sleep_sec=5 * 60):
                 info("Exiting program...")
                 break
 
-        sleep_time = random.randrange(sleep_sec * 0.8, sleep_sec * 1.2)
+        sleep_time = random.randrange(int(sleep_sec * 0.8), int(sleep_sec * 1.2))
         info("Sleeping for %s seconds" % sleep_time)
         sleep(sleep_time)
 

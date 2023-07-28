@@ -1,4 +1,7 @@
-FROM ghcr.io/minchinweb/python:3.9
+FROM ghcr.io/minchinweb/python:3.11
+
+# otherwise, s6 will "eat" environmental variables
+ENV S6_KEEP_ENV=1
 
 COPY ddns.py ./
 
