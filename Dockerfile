@@ -1,4 +1,4 @@
-FROM ghcr.io/minchinweb/python:3.9
+FROM ghcr.io/minchinweb/python:3.11
 
 COPY ddns.py ./
 
@@ -21,4 +21,5 @@ LABEL maintainer="MinchinWeb" \
 
 # RUN export DDNS_VERSION="$(grep -oP '__version__\s+=\s+\"?\K[\d\w\.]+' ./ddns.py)"
 
+# CMD [ "/bin/bash", "-c", "printenv", ">", "/etc/environment", "&&", "python", "./ddns.py" ]
 CMD [ "python", "./ddns.py" ]

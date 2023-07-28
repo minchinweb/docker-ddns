@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/with-contenv python
 # -*- coding: utf-8 -*-
 """
 Dynamic DNS Updater
@@ -24,7 +24,7 @@ from urllib3.exceptions import NameResolutionError
 
 DEFAULT_CACHE_FILE = ".public_ip.txt"
 DEFAULT_DDNS_UPDATE_URL = "http://domain-dns.com/ip.cgi"
-__version__ = "1.1.0"
+__version__ = "1.1.1+dev.5"
 
 
 logging.basicConfig(
@@ -147,6 +147,24 @@ def check_config():
     else:
         error("No API key provided. Set 'DDNS_KEY' environmental variable.")
 
+def verbose_env_debug():
+    for i in [
+        "DDNS_CACHE_FILE",
+        "DDNS_DOMAIN_NAME",
+        "DDNS_KEY",
+        "DDNS_UPDATE_URL",
+        "HOME",
+        "LANG",
+        "PATH",
+        "PGID",
+        "PUID",
+        "PYTHON_VERSION",
+        "UBUNTU_VERSION",
+    ]:
+        info(i)
+        info(getenv(i))
+        info(getenv(i) is None)
+
 
 def main_loop(endless=False, cache_file=None, sleep_sec=5 * 60):
     info("DDNS updater, version %s" % __version__)
@@ -182,10 +200,12 @@ def main_loop(endless=False, cache_file=None, sleep_sec=5 * 60):
                 info("Exiting program...")
                 break
 
-        sleep_time = random.randrange(sleep_sec * 0.8, sleep_sec * 1.2)
+        sleep_time = random.randrange(int(sleep_sec * 0.8), int(sleep_sec * 1.2))
         info("Sleeping for %s seconds" % sleep_time)
         sleep(sleep_time)
 
 
 if __name__ == "__main__":
+    verbose_env_debug()
+
     main_loop(endless=True)
