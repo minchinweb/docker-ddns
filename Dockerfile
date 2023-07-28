@@ -19,7 +19,23 @@ LABEL maintainer="MinchinWeb" \
       org.label-schema.vcs-ref=${COMMIT} \
       org.label-schema.schema-version="1.0.0-rc1"
 
-# RUN export DDNS_VERSION="$(grep -oP '__version__\s+=\s+\"?\K[\d\w\.]+' ./ddns.py)"
+RUN export DDNS_VERSION="$(grep -oP '__version__\s+=\s+\"?\K[\d\w\.]+' ./ddns.py)"
+
+ENV DDNS_CACHE_FILE=
+ENV DDNS_UPDATE_URL=
+ENV DDNS_DOMAIN_NAME=
+ENV DDNS_KEY=
+
+# Use "bash" shell, rather than the default "sh"
+# ENV SHELL=/bin/bash
+# SHELL ["/bin/bash", "-c" ]
+# RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+ENV S6_KEEP_ENV=1
 
 # CMD [ "/bin/bash", "-c", "printenv", ">", "/etc/environment", "&&", "python", "./ddns.py" ]
 CMD [ "python", "./ddns.py" ]
+# CMD = [ "python", "-c", "import os; print(os.environ)" ]
+# CMD [ "/bin/bash", "-c", "python", "./ddns.py" ]
+# CMD [ "/bin/bash", "-c", "./ddns.py" ]
+# CMD [ "env && python", "./ddns.py" ]

@@ -173,6 +173,9 @@ def main_loop(endless=False, cache_file=None, sleep_sec=5 * 60):
 
     if cache_file is None:
         cache_file = getenv("DDNS_CACHE_FILE", DEFAULT_CACHE_FILE)
+    # if DDNS_CACHE_FILE set to a blank string
+    if not cache_file:
+        cache_file = DEFAULT_CACHE_FILE
     cache_file = (Path.cwd() / cache_file).resolve()
     info("Using cache file: %s" % cache_file)
 
