@@ -1,4 +1,4 @@
-FROM ghcr.io/minchinweb/python:3.11
+FROM ghcr.io/minchinweb/python:3.12
 
 # otherwise, s6 will "eat" environmental variables
 ENV S6_KEEP_ENV=1
